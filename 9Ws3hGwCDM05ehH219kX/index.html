@@ -2,640 +2,1440 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>主動式 ETF (00981A) 量化籌碼決策儀表板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>00981A 智腦隨身 WebApp</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        .card-custom { background: #1e293b; border: 1px solid #334155; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        .kpi-val { font-size: 1.8rem; font-weight: 800; }
-        .badge-buy { background-color: #166534; color: #4ade80; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
-        .badge-sell { background-color: #991b1b; color: #fca5a5; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
-        .badge-hold { background-color: #334155; color: #94a3b8; padding: 4px 10px; border-radius: 6px; }
-        .table-dark-custom { --bs-table-bg: #1e293b; --bs-table-color: #f8fafc; border-color: #334155; }
+        body { background-color: #0b0f19; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding-bottom: 70px; margin: 0; }
+        .m-header { background: #151c2c; padding: 16px; border-bottom: 1px solid #1e293b; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .m-title { font-size: 1.1rem; font-weight: 800; color: #38bdf8; margin: 0; }
+        .m-sub { font-size: 0.75rem; color: #94a3b8; }
+        
+        .m-nav-bottom { position: fixed; bottom: 0; left: 0; right: 0; background: #151c2c; border-top: 1px solid #1e293b; display: flex; height: 60px; z-index: 1000; }
+        .m-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #64748b; font-size: 0.75rem; text-decoration: none; font-weight: 600; cursor: pointer; }
+        .m-nav-item.active { color: #38bdf8; }
+        
+        .m-card { background: #151c2c; border: 1px solid #1e293b; border-radius: 12px; margin-bottom: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .m-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
+        .m-stk-code { font-family: monospace; font-weight: 800; color: #38bdf8; font-size: 1.1rem; margin-right: 6px; }
+        .m-stk-name { font-weight: 700; color: #f8fafc; font-size: 1rem; }
+        
+        .m-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .m-kpi-item { background: #0b0f19; padding: 8px 12px; border-radius: 8px; }
+        .m-label { font-size: 0.7rem; color: #64748b; margin-bottom: 2px; }
+        .m-val { font-size: 0.95rem; font-weight: 700; font-family: monospace; }
+        
+        .m-badge-buy { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .m-badge-sell { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .m-badge-hold { background: #1e293b; color: #94a3b8; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; }
+        
+        .section-view { display: none; }
+        .section-view.active { display: block; }
     </style>
 </head>
-<body class="py-4">
-    <div class="container-fluid px-4">
-        <!-- 頂部 Header -->
-        <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary">
+<body>
+    <!-- 頂部卡片區 -->
+    <div class="m-header">
+        <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="fw-bold text-primary mb-1">🎯 00981A 主動式 ETF 機構籌碼戰情看板</h2>
-                <p class="text-secondary mb-0">資料更新時間：2026-10-13 | 自動對齊台股交易日清算矩陣</p>
+                <h1 class="m-title">🎯 00981A 智腦隨身 WebApp</h1>
+                <div class="m-sub">資料日：2026-10-13 | 玩股外資：-521.98億</div>
             </div>
-            <div>
-                <select id="date-select" class="form-select bg-dark text-light border-secondary" style="width: 200px;">
-                    <option value="2026-10-13" selected>📅 2026-10-13</option><option value="2026-10-12" >📅 2026-10-12</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- KPI 數據卡片區 -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="card card-custom p-3">
-                    <div class="text-secondary small font-monospace">00981A 基金即時價格</div>
-                    <div class="kpi-val text-info mt-1">$31.06</div>
-                    <div class="small text-success mt-1">↑ 主動經理人持股進行中</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card card-custom p-3">
-                    <div class="text-secondary small font-monospace">玩股網外資買賣超</div>
-                    <div class="kpi-val text-danger mt-1">-521.98 億</div>
-                    <div class="small text-secondary mt-1">來源：WANTGOO_JS_EVAL</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card card-custom p-3">
-                    <div class="text-secondary small font-monospace">前三大核心重倉集中度</div>
-                    <div class="kpi-val text-warning mt-1">28.18%</div>
-                    <div class="small text-secondary mt-1">台積電 / 台光電 / 聯發科</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card card-custom p-3">
-                    <div class="text-secondary small font-monospace">AI 量化操作指令</div>
-                    <div class="kpi-val text-success mt-1">BUY_ADD_WATCH</div>
-                    <div class="small text-success mt-1">核心持股穩定，擇機逢低佈局</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 主資料表格區 -->
-        <div class="card card-custom p-4">
-            <h5 class="fw-bold text-light mb-3">📋 經理人成分股持股明細與調倉動向 (依權重降冪排列)</h5>
-            <div class="table-responsive">
-                <table class="table table-dark-custom table-hover align-middle">
-                    <thead>
-                        <tr class="text-secondary border-bottom border-secondary">
-                            <th>股票代碼</th>
-                            <th>股票名稱</th>
-                            <th class="text-end">目前權重 (%)</th>
-                            <th class="text-end">即時/盤後價格</th>
-                            <th class="text-center">調倉狀態</th>
-                            <th class="text-end">變動金額 (萬)</th>
-                            <th class="text-end">變動張數</th>
-                            <th class="text-end">目前持有股數</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-    
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2330</td>
-                            <td class="fw-bold">台積電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">10.30%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">11,824,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2383</td>
-                            <td class="fw-bold">台光電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">9.81%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">4,650,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2454</td>
-                            <td class="fw-bold">聯發科</td>
-                            <td class="text-end font-monospace fw-bold text-warning">8.07%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">5,086,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3037</td>
-                            <td class="fw-bold">欣興</td>
-                            <td class="text-end font-monospace fw-bold text-warning">8.06%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">18,721,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3017</td>
-                            <td class="fw-bold">奇鋐</td>
-                            <td class="text-end font-monospace fw-bold text-warning">7.04%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">6,062,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3653</td>
-                            <td class="fw-bold">健策</td>
-                            <td class="text-end font-monospace fw-bold text-warning">6.14%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">2,502,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6223</td>
-                            <td class="fw-bold">旺矽</td>
-                            <td class="text-end font-monospace fw-bold text-warning">5.26%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">2,504,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2327</td>
-                            <td class="fw-bold">國巨*</td>
-                            <td class="text-end font-monospace fw-bold text-warning">5.13%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">23,519,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2308</td>
-                            <td class="fw-bold">台達電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">4.82%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">7,389,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2345</td>
-                            <td class="fw-bold">智邦</td>
-                            <td class="text-end font-monospace fw-bold text-warning">4.58%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">6,264,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">8046</td>
-                            <td class="fw-bold">南電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">4.41%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">8,937,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6274</td>
-                            <td class="fw-bold">台燿</td>
-                            <td class="text-end font-monospace fw-bold text-warning">4.03%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">6,771,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2303</td>
-                            <td class="fw-bold">聯電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">3.97%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">79,618,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6669</td>
-                            <td class="fw-bold">緯穎</td>
-                            <td class="text-end font-monospace fw-bold text-warning">3.37%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">4,315,561</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3665</td>
-                            <td class="fw-bold">貿聯-KY</td>
-                            <td class="text-end font-monospace fw-bold text-warning">2.33%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">2,887,848</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3711</td>
-                            <td class="fw-bold">日月光投控</td>
-                            <td class="text-end font-monospace fw-bold text-warning">2.18%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">8,348,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3443</td>
-                            <td class="fw-bold">創意</td>
-                            <td class="text-end font-monospace fw-bold text-warning">1.90%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">684,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2368</td>
-                            <td class="fw-bold">金像電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">1.58%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">3,741,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">5274</td>
-                            <td class="fw-bold">信驊</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.96%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">157,900</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6510</td>
-                            <td class="fw-bold">精測</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.49%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">420,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2449</td>
-                            <td class="fw-bold">京元電子</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.43%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">4,143,450</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6805</td>
-                            <td class="fw-bold">富世達</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.39%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">499,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">8996</td>
-                            <td class="fw-bold">高力</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.28%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">476,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6271</td>
-                            <td class="fw-bold">同欣電</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.19%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">2,185,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6515</td>
-                            <td class="fw-bold">穎崴</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.19%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">93,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">8210</td>
-                            <td class="fw-bold">勤誠</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.14%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">478,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6191</td>
-                            <td class="fw-bold">精成科</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.13%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">3,921,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3376</td>
-                            <td class="fw-bold">新日興</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.10%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,740,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6187</td>
-                            <td class="fw-bold">萬潤</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.07%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">121,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2313</td>
-                            <td class="fw-bold">華通</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.04%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">501,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2002</td>
-                            <td class="fw-bold">中鋼</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.03%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">5,163,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">1590</td>
-                            <td class="fw-bold">亞德客-KY</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2317</td>
-                            <td class="fw-bold">鴻海</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2360</td>
-                            <td class="fw-bold">致茂</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2382</td>
-                            <td class="fw-bold">廣達</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2408</td>
-                            <td class="fw-bold">南亞科</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2439</td>
-                            <td class="fw-bold">美律</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2481</td>
-                            <td class="fw-bold">強茂</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">5,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">2637</td>
-                            <td class="fw-bold">慧洋-KY</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3008</td>
-                            <td class="fw-bold">大立光</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3264</td>
-                            <td class="fw-bold">欣銓</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">3661</td>
-                            <td class="fw-bold">世芯-KY</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">4958</td>
-                            <td class="fw-bold">臻鼎-KY</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">4966</td>
-                            <td class="fw-bold">譜瑞-KY</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">4979</td>
-                            <td class="fw-bold">華星光</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">5347</td>
-                            <td class="fw-bold">世界</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6278</td>
-                            <td class="fw-bold">台表科</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">6488</td>
-                            <td class="fw-bold">環球晶</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">8150</td>
-                            <td class="fw-bold">南茂</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                        <tr>
-                            <td class="font-monospace fw-bold text-info">8358</td>
-                            <td class="fw-bold">金居</td>
-                            <td class="text-end font-monospace fw-bold text-warning">0.00%</td>
-                            <td class="text-end font-monospace">$0.0</td>
-                            <td class="text-center"><span class="badge-hold">持平</span></td>
-                            <td class="text-end font-monospace">+0.0 萬</td>
-                            <td class="text-end font-monospace">+0 張</td>
-                            <td class="text-end font-monospace text-secondary">1,000</td>
-                        </tr>
-        
-                    </tbody>
-                </table>
-            </div>
+            <select id="m-date-select" class="form-select form-select-sm bg-dark text-light border-secondary" style="width: 120px;">
+                <option value="2026-10-13" selected>📅 2026-10-13</option><option value="2026-10-12" >📅 2026-10-12</option>
+            </select>
         </div>
     </div>
+
+    <div class="container-fluid p-3">
+        <!-- 分頁 1: 00981A 持股卡片清單 -->
+        <div id="view-holdings" class="section-view active">
+            
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2330</span>
+                    <span class="m-stk-name">台積電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">10.30%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">$2,490.0</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2383</span>
+                    <span class="m-stk-name">台光電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">9.81%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2454</span>
+                    <span class="m-stk-name">聯發科</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">8.07%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3037</span>
+                    <span class="m-stk-name">欣興</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">8.06%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3017</span>
+                    <span class="m-stk-name">奇鋐</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">7.04%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3653</span>
+                    <span class="m-stk-name">健策</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">6.14%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6223</span>
+                    <span class="m-stk-name">旺矽</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">5.26%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">$5,940.0</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2327</span>
+                    <span class="m-stk-name">國巨*</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">5.13%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2308</span>
+                    <span class="m-stk-name">台達電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">4.82%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2345</span>
+                    <span class="m-stk-name">智邦</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">4.58%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">8046</span>
+                    <span class="m-stk-name">南電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">4.41%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6274</span>
+                    <span class="m-stk-name">台燿</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">4.03%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">$1,655.0</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2303</span>
+                    <span class="m-stk-name">聯電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">3.97%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">$141.5</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6669</span>
+                    <span class="m-stk-name">緯穎</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">3.37%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3665</span>
+                    <span class="m-stk-name">貿聯-KY</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">2.33%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3711</span>
+                    <span class="m-stk-name">日月光投控</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">2.18%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3443</span>
+                    <span class="m-stk-name">創意</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">1.90%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2368</span>
+                    <span class="m-stk-name">金像電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">1.58%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">5274</span>
+                    <span class="m-stk-name">信驊</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.96%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6510</span>
+                    <span class="m-stk-name">精測</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.49%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2449</span>
+                    <span class="m-stk-name">京元電子</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.43%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6805</span>
+                    <span class="m-stk-name">富世達</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.39%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">8996</span>
+                    <span class="m-stk-name">高力</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.28%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6271</span>
+                    <span class="m-stk-name">同欣電</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.19%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6515</span>
+                    <span class="m-stk-name">穎崴</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.19%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">8210</span>
+                    <span class="m-stk-name">勤誠</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.14%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6191</span>
+                    <span class="m-stk-name">精成科</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.13%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3376</span>
+                    <span class="m-stk-name">新日興</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.10%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6187</span>
+                    <span class="m-stk-name">萬潤</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.07%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2313</span>
+                    <span class="m-stk-name">華通</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.04%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2002</span>
+                    <span class="m-stk-name">中鋼</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.03%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">1590</span>
+                    <span class="m-stk-name">亞德客-KY</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2317</span>
+                    <span class="m-stk-name">鴻海</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2360</span>
+                    <span class="m-stk-name">致茂</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2382</span>
+                    <span class="m-stk-name">廣達</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2408</span>
+                    <span class="m-stk-name">南亞科</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2439</span>
+                    <span class="m-stk-name">美律</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2481</span>
+                    <span class="m-stk-name">強茂</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">2637</span>
+                    <span class="m-stk-name">慧洋-KY</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3008</span>
+                    <span class="m-stk-name">大立光</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3264</span>
+                    <span class="m-stk-name">欣銓</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">3661</span>
+                    <span class="m-stk-name">世芯-KY</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">4958</span>
+                    <span class="m-stk-name">臻鼎-KY</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">4966</span>
+                    <span class="m-stk-name">譜瑞-KY</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">4979</span>
+                    <span class="m-stk-name">華星光</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">5347</span>
+                    <span class="m-stk-name">世界</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6278</span>
+                    <span class="m-stk-name">台表科</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">6488</span>
+                    <span class="m-stk-name">環球晶</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">8150</span>
+                    <span class="m-stk-name">南茂</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-card">
+            <div class="m-card-header">
+                <div>
+                    <span class="m-stk-code">8358</span>
+                    <span class="m-stk-name">金居</span>
+                </div>
+                <div><span class="m-badge m-badge-hold">持平</span></div>
+            </div>
+            <div class="m-card-body">
+                <div class="m-kpi-item">
+                    <div class="m-label">持股權重</div>
+                    <div class="m-val text-warning">0.00%</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">即時股價</div>
+                    <div class="m-val text-info">--</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動金額</div>
+                    <div class="m-val">+0.0 萬</div>
+                </div>
+                <div class="m-kpi-item">
+                    <div class="m-label">變動張數</div>
+                    <div class="m-val">+0 張</div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- 分頁 2: 個股搜尋 -->
+        <div id="view-stock" class="section-view">
+            <div class="m-card mb-3">
+                <label class="m-label mb-2">🔍 快速搜尋/選擇個股</label>
+                <select id="m-stock-select" class="form-select bg-dark text-light border-secondary">
+                    <option value="1590">[1590] 1590</option><option value="2002">[2002] 2002</option><option value="2303">[2303] 2303</option><option value="2308">[2308] 2308</option><option value="2313">[2313] 2313</option><option value="2317">[2317] 2317</option><option value="2327">[2327] 2327</option><option value="2330">[2330] 2330</option><option value="2345">[2345] 2345</option><option value="2360">[2360] 2360</option><option value="2368">[2368] 2368</option><option value="2382">[2382] 2382</option><option value="2383">[2383] 2383</option><option value="2408">[2408] 2408</option><option value="2439">[2439] 2439</option><option value="2449">[2449] 2449</option><option value="2454">[2454] 2454</option><option value="2481">[2481] 2481</option><option value="2637">[2637] 2637</option><option value="3008">[3008] 3008</option><option value="3017">[3017] 3017</option><option value="3037">[3037] 3037</option><option value="3264">[3264] 3264</option><option value="3376">[3376] 3376</option><option value="3443">[3443] 3443</option><option value="3653">[3653] 3653</option><option value="3661">[3661] 3661</option><option value="3665">[3665] 3665</option><option value="3711">[3711] 3711</option><option value="4958">[4958] 4958</option><option value="4966">[4966] 4966</option><option value="4979">[4979] 4979</option><option value="5274">[5274] 5274</option><option value="5347">[5347] 5347</option><option value="6187">[6187] 6187</option><option value="6191">[6191] 6191</option><option value="6223">[6223] 6223</option><option value="6271">[6271] 6271</option><option value="6274">[6274] 6274</option><option value="6278">[6278] 6278</option><option value="6488">[6488] 6488</option><option value="6510">[6510] 6510</option><option value="6515">[6515] 6515</option><option value="6669">[6669] 6669</option><option value="6805">[6805] 6805</option><option value="8046">[8046] 8046</option><option value="8150">[8150] 8150</option><option value="8210">[8210] 8210</option><option value="8358">[8358] 8358</option><option value="8996">[8996] 8996</option>
+                </select>
+            </div>
+            <div id="m-stock-detail-card"></div>
+        </div>
+    </div>
+
+    <!-- 底部 App 導覽列 -->
+    <div class="m-nav-bottom">
+        <div class="m-nav-item active" onclick="switchTab('holdings', this)">
+            <div>📈</div>
+            <div>成分股總覽</div>
+        </div>
+        <div class="m-nav-item" onclick="switchTab('stock', this)">
+            <div>🔍</div>
+            <div>個股穿透</div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(viewName, btn) {
+            document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.m-nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewName).classList.add('active');
+            btn.classList.add('active');
+        }
+    </script>
 </body>
 </html>
-    
