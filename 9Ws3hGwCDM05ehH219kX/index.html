@@ -13,10 +13,6 @@
         .title-header { text-align: center; margin-bottom: 20px; }
         .title-header h2 { font-size: 24px; font-weight: bold; margin-bottom: 6px; }
         .title-header p { color: #64748b; font-size: 13px; margin: 0; }
-        
-        .nav-tab-group { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; }
-        .nav-tab-btn { padding: 10px 24px; font-size: 14px; font-weight: bold; border-radius: 6px; border: none; cursor: pointer; background: #e2e8f0; color: #475569; transition: all 0.2s; }
-        .nav-tab-btn.active { background: #2563eb; color: white; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3); }
 
         .filter-card { background: white; border: 1px solid #cbd5e1; border-radius: 8px; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         .filter-item { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 14px; color: #334155; }
@@ -29,12 +25,7 @@
     <div class="container">
         <div class="title-header">
             <h2>📊 台灣全量主動式 ETF 機構調倉分析系統</h2>
-            <p>歷史範圍：2026-10-13 ➔ 2026-10-13 | ⚡ 數據狀態：已完成全量 40 檔主動式 ETF 洗淨與兩日調倉對齊</p>
-        </div>
-
-        <div class="nav-tab-group">
-            <button class="nav-tab-btn active">(1) 全量主動式 ETF 每日總持股明細 (按權重排序)</button>
-            <button class="nav-tab-btn" onclick="alert('個股穿透雷達載入中...')">(2) 個股視角：Top 10 動態排位刷新與籌碼雷達</button>
+            <p>歷史範圍：2026-10-13 ➔ 2026-10-13 | ⚡ 數據狀態：已完成全量 40 檔主動式 ETF 股價顯化與調倉對齊</p>
         </div>
 
         <div class="filter-card">
@@ -51,15 +42,18 @@
         <div id="date-group-2026-10-13" class="date-group" style="display: block;">
             <div class="etf-card etf-card-00401A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00401A] 主動安聯台灣高息</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00401A] 主動安聯台灣高息</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.25 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -174,15 +168,18 @@
             </div>
             <div class="etf-card etf-card-00401D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00401D] 主動安聯美債20年</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00401D] 主動安聯美債20年</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -297,15 +294,18 @@
             </div>
             <div class="etf-card etf-card-00402A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00402A] 主動安聯台灣科技</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00402A] 主動安聯台灣科技</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $12.80 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -420,15 +420,18 @@
             </div>
             <div class="etf-card etf-card-00402D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00402D] 主動國泰投資級債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00402D] 主動國泰投資級債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -543,15 +546,18 @@
             </div>
             <div class="etf-card etf-card-00403A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00403A] 主動統一升級50</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00403A] 主動統一升級50</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.92 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -666,15 +672,18 @@
             </div>
             <div class="etf-card etf-card-00403D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00403D] 主動富邦全球高收債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00403D] 主動富邦全球高收債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -789,15 +798,18 @@
             </div>
             <div class="etf-card etf-card-00404A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00404A] 主動國泰台灣科技</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00404A] 主動國泰台灣科技</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $11.50 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -912,15 +924,18 @@
             </div>
             <div class="etf-card etf-card-00404D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00404D] 主動中信ESG金融債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00404D] 主動中信ESG金融債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1035,15 +1050,18 @@
             </div>
             <div class="etf-card etf-card-00405A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00405A] 主動國泰台灣優選</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00405A] 主動國泰台灣優選</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.20 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1158,15 +1176,18 @@
             </div>
             <div class="etf-card etf-card-00405D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00405D] 主動元大美債10年</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00405D] 主動元大美債10年</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1281,15 +1302,18 @@
             </div>
             <div class="etf-card etf-card-00406A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00406A] 主動中信台灣收益</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00406A] 主動中信台灣收益</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $9.85 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1404,15 +1428,18 @@
             </div>
             <div class="etf-card etf-card-00406D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00406D] 主動群益全球BBB債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00406D] 主動群益全球BBB債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1527,15 +1554,18 @@
             </div>
             <div class="etf-card etf-card-00407A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00407A] 主動富邦台灣心選</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00407A] 主動富邦台灣心選</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1650,15 +1680,18 @@
             </div>
             <div class="etf-card etf-card-00407D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00407D] 主動復華ESG企業債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00407D] 主動復華ESG企業債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1773,15 +1806,18 @@
             </div>
             <div class="etf-card etf-card-00408A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00408A] 主動凱基台灣精選</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00408A] 主動凱基台灣精選</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -1896,15 +1932,18 @@
             </div>
             <div class="etf-card etf-card-00408D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00408D] 主動永豐10年美債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00408D] 主動永豐10年美債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2019,15 +2058,18 @@
             </div>
             <div class="etf-card etf-card-00409A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00409A] 主動元大台灣龍頭</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00409A] 主動元大台灣龍頭</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2142,15 +2184,18 @@
             </div>
             <div class="etf-card etf-card-00409D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00409D] 主動凱基新興債</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00409D] 主動凱基新興債</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2265,15 +2310,18 @@
             </div>
             <div class="etf-card etf-card-00410A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00410A] 主動永豐台灣亮點</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00410A] 主動永豐台灣亮點</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2388,15 +2436,18 @@
             </div>
             <div class="etf-card etf-card-00410D" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00410D] 主動台新美債30年</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00410D] 主動台新美債30年</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $10.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2511,15 +2562,18 @@
             </div>
             <div class="etf-card etf-card-00411A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00411A] 主動台新台灣中小</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00411A] 主動台新台灣中小</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2634,15 +2688,18 @@
             </div>
             <div class="etf-card etf-card-00412A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00412A] 主動兆豐台灣先進</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00412A] 主動兆豐台灣先進</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2757,15 +2814,18 @@
             </div>
             <div class="etf-card etf-card-00413A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00413A] 主動第一金台灣成長</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00413A] 主動第一金台灣成長</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -2880,15 +2940,18 @@
             </div>
             <div class="etf-card etf-card-00414A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00414A] 主動華南永昌台灣</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00414A] 主動華南永昌台灣</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3003,15 +3066,18 @@
             </div>
             <div class="etf-card etf-card-00415A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00415A] 主動合庫台灣強勢</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00415A] 主動合庫台灣強勢</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3126,15 +3192,18 @@
             </div>
             <div class="etf-card etf-card-00416A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00416A] 主動彰銀台灣潛力</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00416A] 主動彰銀台灣潛力</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3249,15 +3318,18 @@
             </div>
             <div class="etf-card etf-card-00417A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00417A] 主動土銀台灣穩健</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00417A] 主動土銀台灣穩健</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3372,15 +3444,18 @@
             </div>
             <div class="etf-card etf-card-00418A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00418A] 主動高雄銀行台灣</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00418A] 主動高雄銀行台灣</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3495,15 +3570,18 @@
             </div>
             <div class="etf-card etf-card-00419A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00419A] 主動新光台灣富貴</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00419A] 主動新光台灣富貴</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3618,15 +3696,18 @@
             </div>
             <div class="etf-card etf-card-00420A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00420A] 主動聯博台灣動能</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00420A] 主動聯博台灣動能</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3741,15 +3822,18 @@
             </div>
             <div class="etf-card etf-card-00421A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00421A] 主動施羅德台灣</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00421A] 主動施羅德台灣</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3864,15 +3948,18 @@
             </div>
             <div class="etf-card etf-card-00422A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00422A] 主動野村台灣創新</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00422A] 主動野村台灣創新</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -3987,15 +4074,18 @@
             </div>
             <div class="etf-card etf-card-00423A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00423A] 主動摩根台灣優質</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00423A] 主動摩根台灣優質</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4110,15 +4200,18 @@
             </div>
             <div class="etf-card etf-card-00424A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00424A] 主動富達台灣領航</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00424A] 主動富達台灣領航</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4233,15 +4326,18 @@
             </div>
             <div class="etf-card etf-card-00425A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00425A] 主動駿利亨德森台灣</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00425A] 主動駿利亨德森台灣</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $15.00 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4356,15 +4452,18 @@
             </div>
             <div class="etf-card etf-card-00981A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00981A] 主動統一台股增長</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00981A] 主動統一台股增長</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $31.06 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4479,15 +4578,18 @@
             </div>
             <div class="etf-card etf-card-00982A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00982A] 主動群益台灣優選</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00982A] 主動群益台灣優選</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $20.15 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4602,15 +4704,18 @@
             </div>
             <div class="etf-card etf-card-00985A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00985A] 主動野村台灣50</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00985A] 主動野村台灣50</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $23.65 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4725,15 +4830,18 @@
             </div>
             <div class="etf-card etf-card-00991A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00991A] 主動復華未來50</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00991A] 主動復華未來50</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $18.18 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
@@ -4848,15 +4956,18 @@
             </div>
             <div class="etf-card etf-card-00992A" style="background: white; border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 25px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
                 <div style="background: #0f172a; color: white; padding: 12px 20px; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-                    <div>[00992A] 主動群益科技創新</div>
-                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
+                    <div>
+                        <span>[00992A] 主動群益科技創新</span>
+                        <span style="background: #2563eb; color: #ffffff; padding: 3px 10px; border-radius: 6px; font-size: 14px; margin-left: 12px; font-family: monospace;">最新股價: $19.43 TWD</span>
+                    </div>
+                    <div style="font-size: 12px; font-weight: normal; color: #cbd5e1;">報告交易日: 2026-10-13 <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">10/12 ➔ 10/13 全量對齊</span></div>
                 </div>
                 <div class="table-responsive">
                     <table style="width: 100%; border-collapse: collapse; font-size: 13.5px;">
                         <thead>
                             <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0; color: #475569; font-weight: bold;">
                                 <th style="padding: 12px; text-align: left;">代號</th>
-                                <th style="padding: 12px; text-align: left;">標的名稱</th>
+                                <th style="padding: 12px; text-align: left;">股票名稱</th>
                                 <th style="padding: 12px; text-align: right;">即時/最新股價</th>
                                 <th style="padding: 12px; text-align: right;">權重 (%)</th>
                                 <th style="padding: 12px; text-align: center;">狀態</th>
